@@ -78,6 +78,14 @@ describe("DesktopEnvironment", () => {
       assert.deepEqual(environment.commitHashOverride, Option.some("0123456789abcdef"));
       assert.deepEqual(environment.otlpTracesUrl, Option.some("http://127.0.0.1:4318/v1/traces"));
       assert.equal(environment.otlpExportIntervalMs, 2500);
+      assert.deepEqual(environment.branding, {
+        baseName: "Magie",
+        stageLabel: "Dev",
+        displayName: "Magie (Dev)",
+      });
+      assert.equal(environment.displayName, "Magie (Dev)");
+      assert.equal(environment.userDataDirName, "t3code-dev");
+      assert.equal(environment.legacyUserDataDirName, "T3 Code (Dev)");
     }),
   );
 
@@ -95,6 +103,9 @@ describe("DesktopEnvironment", () => {
       assert.equal(environment.logDir, "/tmp/t3/userdata/logs");
       assert.equal(environment.browserArtifactsDir, "/tmp/t3/userdata/browser-artifacts");
       assert.equal(environment.serverSettingsPath, "/tmp/t3/userdata/settings.json");
+      assert.equal(environment.displayName, "Magie (Alpha)");
+      assert.equal(environment.userDataDirName, "t3code");
+      assert.equal(environment.legacyUserDataDirName, "T3 Code (Alpha)");
     }),
   );
 

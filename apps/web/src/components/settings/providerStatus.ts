@@ -1,5 +1,7 @@
 import type { ServerProvider, ServerProviderVersionAdvisory } from "@t3tools/contracts";
 
+import { replaceLegacyAppName } from "../../branding";
+
 /**
  * Visual treatment for each server-reported provider status. Centralized so
  * the default-driver card and per-instance cards share the same language.
@@ -35,48 +37,47 @@ export function getProviderSummary(provider: ServerProvider | undefined) {
       detail: "Waiting for the server to report installation and authentication details.",
     };
   }
+  const message = replaceLegacyAppName(provider.message);
   if (!provider.enabled) {
     return {
       headline: "Disabled",
-      detail:
-        provider.message ?? "This provider is installed but disabled for new sessions in T3 Code.",
+      detail: message ?? "This provider is installed but disabled for new sessions in Magie.",
     };
   }
   if (!provider.installed) {
     return {
       headline: "Not found",
-      detail: provider.message ?? "CLI not detected on PATH.",
+      detail: message ?? "CLI not detected on PATH.",
     };
   }
   if (provider.auth.status === "authenticated") {
     const authLabel = provider.auth.label ?? provider.auth.type;
     return {
       headline: authLabel ? `Authenticated · ${authLabel}` : "Authenticated",
-      detail: provider.message ?? null,
+      detail: message ?? null,
     };
   }
   if (provider.auth.status === "unauthenticated") {
     return {
       headline: "Not authenticated",
-      detail: provider.message ?? null,
+      detail: message ?? null,
     };
   }
   if (provider.status === "warning") {
     return {
       headline: "Needs attention",
-      detail:
-        provider.message ?? "The provider is installed, but the server could not fully verify it.",
+      detail: message ?? "The provider is installed, but the server could not fully verify it.",
     };
   }
   if (provider.status === "error") {
     return {
       headline: "Unavailable",
-      detail: provider.message ?? "The provider failed its startup checks.",
+      detail: message ?? "The provider failed its startup checks.",
     };
   }
   return {
     headline: "Available",
-    detail: provider.message ?? "Installed and ready, but authentication could not be verified.",
+    detail: message ?? "Installed and ready, but authentication could not be verified.",
   };
 }
 

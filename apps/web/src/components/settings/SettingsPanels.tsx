@@ -47,7 +47,12 @@ import * as Arr from "effect/Array";
 import * as Duration from "effect/Duration";
 import * as Equal from "effect/Equal";
 import * as Result from "effect/Result";
-import { APP_VERSION, HOSTED_APP_CHANNEL, HOSTED_APP_CHANNEL_LABEL } from "../../branding";
+import {
+  APP_VERSION,
+  HOSTED_APP_CHANNEL,
+  HOSTED_APP_CHANNEL_LABEL,
+  replaceLegacyAppName,
+} from "../../branding";
 import {
   canCheckForUpdate,
   getDesktopUpdateButtonTooltip,
@@ -416,7 +421,9 @@ function AboutVersionSection() {
           stackedThreadToast({
             type: "error",
             title: "Could not install update",
-            description: error instanceof Error ? error.message : "Install failed.",
+            description: replaceLegacyAppName(
+              error instanceof Error ? error.message : "Install failed.",
+            ),
           }),
         );
       });
@@ -432,8 +439,9 @@ function AboutVersionSection() {
             stackedThreadToast({
               type: "error",
               title: "Could not check for updates",
-              description:
+              description: replaceLegacyAppName(
                 result.state.message ?? "Automatic updates are not available in this build.",
+              ),
             }),
           );
         }
@@ -443,7 +451,9 @@ function AboutVersionSection() {
           stackedThreadToast({
             type: "error",
             title: "Could not check for updates",
-            description: error instanceof Error ? error.message : "Update check failed.",
+            description: replaceLegacyAppName(
+              error instanceof Error ? error.message : "Update check failed.",
+            ),
           }),
         );
       });
@@ -967,7 +977,7 @@ export function AppearanceSettingsPanel() {
       <SettingsSection id="appearance" title="Appearance">
         <SettingsRow
           {...searchableSetting("theme")}
-          description="Choose how T3 Code looks across the app."
+          description="Choose how Magie looks across the app."
           resetAction={
             theme !== "system" ? (
               <SettingResetButton label="theme" onClick={() => setTheme("system")} />

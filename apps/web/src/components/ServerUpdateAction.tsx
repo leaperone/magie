@@ -6,6 +6,7 @@ import {
 } from "@t3tools/client-runtime/state/runtime";
 import { CheckIcon } from "lucide-react";
 
+import { replaceLegacyAppName } from "../branding";
 import { useCopyToClipboard } from "~/hooks/useCopyToClipboard";
 import { cn } from "~/lib/utils";
 import { serverEnvironment } from "~/state/server";
@@ -22,7 +23,7 @@ const UPDATE_STEPS = [
 const pendingUpdateEnvironmentIds = new Set<EnvironmentId>();
 
 function updateFailureMessage(error: unknown): string {
-  return error instanceof Error ? error.message : "Server update failed.";
+  return replaceLegacyAppName(error instanceof Error ? error.message : "Server update failed.");
 }
 
 /**
@@ -102,7 +103,7 @@ export function ServerUpdateProgress({
       </ol>
       {state.status === "failed" ? (
         <p className="text-xs text-destructive" role="alert">
-          {state.message}
+          {replaceLegacyAppName(state.message)}
         </p>
       ) : null}
     </div>

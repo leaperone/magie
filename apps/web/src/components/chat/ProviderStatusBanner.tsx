@@ -1,6 +1,7 @@
 import { type ServerProvider } from "@t3tools/contracts";
 import { memo } from "react";
 import { InfoIcon, XIcon } from "lucide-react";
+import { replaceLegacyAppName } from "../../branding";
 import { cn } from "~/lib/utils";
 import { formatProviderDriverKindLabel } from "../../providerModels";
 import { Tooltip, TooltipPopup, TooltipTrigger } from "../ui/tooltip";
@@ -37,7 +38,7 @@ export const ProviderStatusBanner = memo(function ProviderStatusBanner({
     : `${providerName} provider status`;
   const message = isUnauthenticated
     ? "Sign in via the CLI to authenticate again."
-    : (status.message ??
+    : (replaceLegacyAppName(status.message) ??
       (status.status === "error"
         ? `${providerName} provider is unavailable.`
         : `${providerName} provider has limited availability.`));

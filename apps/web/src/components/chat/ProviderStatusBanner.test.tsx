@@ -44,6 +44,18 @@ describe("ProviderStatusBanner", () => {
     expect(markup).toContain("absolute top-2 right-2");
   });
 
+  it("rebrands server-provided provider messages", () => {
+    const markup = renderToStaticMarkup(
+      <ProviderStatusBanner
+        status={{ ...warningProvider(), message: "Restart T3 Code and try again." }}
+        onDismiss={() => {}}
+      />,
+    );
+
+    expect(markup).toContain("Restart Magie and try again.");
+    expect(markup).not.toContain("T3 Code");
+  });
+
   it("labels error dismiss controls with the correct severity", () => {
     const markup = renderToStaticMarkup(
       <ProviderStatusBanner
