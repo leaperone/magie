@@ -25,6 +25,7 @@
 - `icons:check` 依赖 Icon Composer 2+ 且不参与实际打包；首版使用现有图标时不应让该工具可用性阻塞 Release。
 - 独立审查发现更新完成后的 Release 链接仍指向上游 `pingdotgg/t3code` 的 `vX.Y.Z`；共享 URL helper 已改为 `leaperone/magie` 的 `desktop-vX.Y.Z`，logic/toast 测试已覆盖。
 - 首次远端 CI 的 Check job 全绿；Test job 暴露 `infra/relay/scripts/deploy.test.ts` 仍断言已移除的 relay release graph。该断言不再属于 Magie Desktop-only workflow，已删除。
+- 第二次远端 CI 只剩 `imageCompression.test.ts` 的已知慢路径超过 Web 默认 15 秒；本地逻辑通过，已仅将该测试超时提高到 30 秒。
 
 ## 技术决策
 
@@ -42,6 +43,7 @@
 - `apps/desktop/src/updates/DesktopUpdates.ts`
 - `apps/web/src/components/desktopUpdate.logic.ts`
 - `infra/relay/scripts/deploy.test.ts`
+- `apps/web/src/lib/imageCompression.test.ts`
 - `assets/README.md`
 - `.github/workflows/{ci,release}.yml`
 

@@ -17,6 +17,7 @@
 - 在最新 `origin/main` 基线上通过 113 项 Desktop/Web/scripts 定向测试和三包 typecheck；release smoke 在 rebase 前通过，发布相关文件在 rebase 中无冲突。
 - 独立审查复核 URL 修复后无剩余代码级 Critical/High；unsigned 首版作为用户已接受的发布边界保留。
 - 首次远端 CI Check job 通过；删除与 Desktop-only release 不再相符的 relay workflow 测试断言。
+- 第二次远端 CI Check job 通过；为共享 runner 上的单个图片压缩慢测试设置 30 秒局部超时。
 
 ## 下一步
 
@@ -36,6 +37,7 @@
 | 定向代码验证     | 10 files / 113 tests；Desktop/Web/scripts typecheck；diff check | 通过 |
 | Release URL 修复 | 2 files / 34 tests；Web typecheck；format check                 | 通过 |
 | CI 失败复现      | relay deploy test + image compression test，23 tests            | 通过 |
+| 慢测试超时修复   | image compression test                                          | 通过 |
 | 现有图标边界     | 用户确认首版不更新图标；Release 使用已跟踪图标资产              | 通过 |
 
 ## 错误与恢复
@@ -47,3 +49,4 @@
 | LEAPERone 图像接口生成              |    2 | 已生成一张本地概念图；用户决定首版不更新图标，`output/` 不纳入发布提交。                  |
 | rebase 后依赖补齐                   |    2 | npm 网络下载可选平台包超时；改用已安装的直接测试/typecheck 二进制完成当前 HEAD 定向验证。 |
 | 首次远端 CI Test                    |    1 | 旧 relay workflow 断言失败；image compression 测试在共享 runner 超时，本地复跑通过。      |
+| 第二次远端 CI Test                  |    1 | 仅 image compression 测试超过默认 15 秒；保留逻辑，仅将该测试局部超时设为 30 秒。         |
